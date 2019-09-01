@@ -32,11 +32,11 @@ def find_Images(path):#查找图片路径
     md_File_contant = str(md_File_contant,encoding="utf-8")
     res = re.compile("!\[.+?\)")
     Image_path_list = re.findall(res,md_File_contant)
+    print("Image_list:",len(Image_path_list))
     return Image_path_list
 
 def Image_Copy(md_blog_Image_Folder_path,Image_path,Relative_path):#图片复制
     Image_Folder_path = md_blog_Image_Folder_path + Relative_path[:Relative_path.rindex("/")].replace(".assets","")
-
     if (not os.path.exists(Image_Folder_path)):
         os.mkdir(Image_Folder_path)
         print("[+]mkdir "+Image_Folder_path)
@@ -48,8 +48,6 @@ def Image_Copy(md_blog_Image_Folder_path,Image_path,Relative_path):#图片复制
     except:
         print("[-]Error Copy"+Image_path_c)
         return 0
-
-
 def Copy_image_Folder(md_File_path,md_blog_Image_Folder_path):
     print("======start Copy images to Folder======")
     Image_path_list = find_Images(md_File_path)#获取正则匹配到的images列表
@@ -59,24 +57,19 @@ def Copy_image_Folder(md_File_path,md_blog_Image_Folder_path):
             Image_path = Relative_to_Absolute(Image_path_y,md_File_path)
 
         if os.path.exists(Image_path):
-            #print("[+]"+Image_path)
             Image_Copy(md_blog_Image_Folder_path, Image_path, Image_path_y)
         else:
             print("[-] Error "+Image_path+"not existence")
 
 
 def Replace_md_Image_path(md_blog_Page_path):#from Page md image path replace to web image path
-    #print(md_blog_Page_path)
     md_Page = open(md_blog_Page_path,"r+",encoding="utf-8")#r+ w+ a+ 都是以读写的方式打开
     md_Page_content_list = md_Page.readlines()
     new_md_Page_content_list = []
     for md_Page_content in md_Page_content_list:
-        #print(md_Page_content)
-        #md_Page_content = md_Page_content.replace("\n","")
         if ("](" in md_Page_content):
             replace_content = "\\img\\images\\"+md_Page_content[md_Page_content.index("](")+2:-1].replace(".assets/","\\")
             md_Page_content = md_Page_content.replace(md_Page_content[md_Page_content.index("](") + 2:-1],replace_content)
-            #print(md_Page_content)
         new_md_Page_content_list.append(md_Page_content)
     md_Page.seek(0)#定位到文件开头
     md_Page.truncate()#清空内容
@@ -85,7 +78,7 @@ def Replace_md_Image_path(md_blog_Page_path):#from Page md image path replace to
 
 def Copy_md_Folder(md_File_path,md_blog_Page_Folder_path):
     print("======start Copy md to Folder======")
-    md_File_name = md_File_path[md_File_path.rindex("/")+1:]
+    md_File_name = md_File_path[md_File_path.rindex("\\")+1:]
     md_blog_Page_path = md_blog_Page_Folder_path + md_File_name
     print(md_File_path,md_blog_Page_path)
     try:

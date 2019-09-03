@@ -78,7 +78,10 @@ def Replace_md_Image_path(md_blog_Page_path):#from Page md image path replace to
 
 def Copy_md_Folder(md_File_path,md_blog_Page_Folder_path):
     print("======start Copy md to Folder======")
-    md_File_name = md_File_path[md_File_path.rindex("\\")+1:]
+    try:
+        md_File_name = md_File_path[md_File_path.rindex("\\") + 1:]
+    except ValueError:
+        md_File_name = md_File_path[md_File_path.rindex("/") + 1:]
     md_blog_Page_path = md_blog_Page_Folder_path + md_File_name
     print(md_File_path,md_blog_Page_path)
     try:

@@ -35,4 +35,4 @@ md_blog_Page_Folder_path=F:\blog\source\_posts\
 - `md_blog_Page_Folder_path` hexo 文章存放路径
 
 **更新记录**
-2019.9.10 解决了图片路径中用'\'分隔时报错的问题
+- 2019.9.10 解决了图片路径中用'\'分隔时报错的问题

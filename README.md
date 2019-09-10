@@ -5,9 +5,12 @@ path.ini //配置hexo 文章及图片路径
 ```
 
 **功能介绍**
+
 简化hexo发稿流程小工具
 简化hexo发文章流程，自动处理hexo文章图片与引用关系
+
 **使用实例**
+
 
 ```
 python HPageUpdate.py F:/g/代码空白区添加shellcode.md 代码空白区添加shellcode 编程开发 shellcode,PE 2019-6-25;22:00:03
@@ -30,3 +33,6 @@ md_blog_Page_Folder_path=F:\blog\source\_posts\
 
 - `md_blog_Image_Folder_path` hexo图片存放路径
 - `md_blog_Page_Folder_path` hexo 文章存放路径
+
+**更新记录**
+2019.9.10 解决了图片路径中用'\'分隔时报错的问题

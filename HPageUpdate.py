@@ -21,7 +21,10 @@ def Clear_Image_path(path):#清洗掉markdown语法字符，只剩下图片路�
     return path
 
 def Relative_to_Absolute(Relative_path,md_File_path):#将相对路径转换为绝对路径
-    path = md_File_path[:md_File_path.rindex("/")+1]
+    try:
+        path = md_File_path[:md_File_path.rindex("/")+1]
+    except:
+        path = md_File_path[:md_File_path.rindex("\\")+1]
     Image_path = path + Relative_path
     Image_path = Image_path.replace("/","\\")
     return Image_path
@@ -53,6 +56,7 @@ def Copy_image_Folder(md_File_path,md_blog_Image_Folder_path):
     Image_path_list = find_Images(md_File_path)#获取正则匹配到的images列表
     for Image_path in Image_path_list:
         Image_path_y = Clear_Image_path(Image_path)
+        print(Image_path_y)
         if (not if_Image_path(Image_path_y)):
             Image_path = Relative_to_Absolute(Image_path_y,md_File_path)
 
@@ -135,8 +139,6 @@ def t_time():#取当前 时分秒
     second = time.localtime().tm_sec
     time_strings = "%s-%s-%s %s:%s:%s" %(year,mon,day,hour,minute,second)
     return time_strings
-
-
 
 if __name__ == '__main__':
     md_File_path = sys.argv[1]
